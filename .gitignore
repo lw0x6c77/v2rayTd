@@ -1,0 +1,5 @@
+*.o
+*.log
+v2rayTd
+v2rayTctl
+**/release
