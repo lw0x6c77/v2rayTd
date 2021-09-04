@@ -21,7 +21,7 @@ int stop_proxy()
 
 int reload()
 {
-    if(!init_config()) {
+    if (!init_config()) {
         err_msg("load configuration error, exit 1");
         exit(1);
     }

@@ -33,34 +33,32 @@ static int split_line(const char *line, ssize_t n, char *k, char *v)
     int change = 0;
     char c;
 
-    if(n > MAX_CFG_LINE) {
+    if (n > MAX_CFG_LINE) {
         err_msg("length gt %d, %s", MAX_CFG_LINE, line);
         return -1;
     }
 
     for (int i = 0; i < n; ++i) {
-        if((c = line[i]) == '#') {
+        if ((c = line[i]) == '#') {
             break;
         }
-        else if(c == '\r' || c == '\n') {
+        else if (c == '\r' || c == '\n') {
             break;
         }
-        else if(c == ' ' || c == '\t') {
+        else if (c == ' ' || c == '\t') {
             if (ki > 0 && change == 0) {
                 change = 1;
             }
-            else if(vi > 0 && change == 1) {
+            else if (vi > 0 && change == 1) {
                 break;
             }
             continue;
         }
         else {
-            if(change == 0) {
+            if (change == 0)
                 k[ki++] = c;
-            }
-            else {
+            else
                 v[vi++] = c;
-            }
         }
     }
 
@@ -69,7 +67,7 @@ static int split_line(const char *line, ssize_t n, char *k, char *v)
         v[vi] = '\0';
         // err_msg("%s, %s", k, v);
         return 0;
-    } else if(ki == 0 && vi == 0) {
+    } else if (ki == 0 && vi == 0) {
         return 1;
     }
 
@@ -130,7 +128,7 @@ static bool read_configuration()
     size_t n        = 0;
     ssize_t nread   = 0;
     char *line      = NULL;
-    bool ret = true;
+    bool ret        = true;
     char k[MAX_CFG_LINE + 1];
     char v[MAX_CFG_LINE + 1];
 
@@ -140,16 +138,16 @@ static bool read_configuration()
         goto err_clean;
     }
 
-    while((nread = getline(&line, &n, fp)) > 0) {
+    while ((nread = getline(&line, &n, fp)) > 0) {
         int code = split_line(line, nread, k, v);
-        if(code == -1) {
+        if (code == -1) {
             ret = false;
             goto err_clean;
-        } else if(code == 1) {
+        } else if (code == 1) {
             continue;
         }
 
-        if(!stroe_config(k, v)) {
+        if (!stroe_config(k, v)) {
             err_msg("invalid line: %s", line);
             ret = false;
             goto err_clean;
@@ -157,7 +155,7 @@ static bool read_configuration()
     }
 
 err_clean:
-    if(line)
+    if (line)
         free(line);
 
     return ret;
@@ -169,16 +167,16 @@ err_clean:
  */
 bool init_config()
 {
-    if(g_cfg.cnt != 0)
+    if (g_cfg.cnt != 0)
         relase_config();
-    g_cfg.http_proxy = NULL;
-    g_cfg.socks_proxy = NULL;
+    g_cfg.http_proxy   = NULL;
+    g_cfg.socks_proxy  = NULL;
     g_cfg.proxy_engine = NULL;
-    g_cfg.proxy_log = NULL;
-    g_cfg.stroe_log = NULL;
-    g_cfg.geosite = NULL;
-    g_cfg.geoip = NULL;
-    g_cfg.cnt = 0;
+    g_cfg.proxy_log    = NULL;
+    g_cfg.stroe_log    = NULL;
+    g_cfg.geosite      = NULL;
+    g_cfg.geoip        = NULL;
+    g_cfg.cnt          = 0;
 
     if (!read_configuration())
         return false;

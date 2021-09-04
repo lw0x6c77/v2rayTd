@@ -16,14 +16,14 @@ void usage()
 int main(int argc, char *argv[])
 {
     int					sockfd;
-	struct sockaddr_un	servaddr, cliaddr;
+    struct sockaddr_un	servaddr, cliaddr;
     char                mesg[MAXLINE];
     char                sendline[MAXLINE];
     socklen_t           addrlen;
     ssize_t		        n;
     bool                exitall = false;
 
-	sockfd = socket(AF_LOCAL, SOCK_DGRAM, 0);
+    sockfd = socket(AF_LOCAL, SOCK_DGRAM, 0);
     if(sockfd < 0) {
         err_sys("can't create socket");
         exit(1);
@@ -84,7 +84,5 @@ flush_prompt:
         printf("> ");
         fflush(stdout);
     }
-
-
     return 0;
 }

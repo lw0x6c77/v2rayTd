@@ -23,20 +23,20 @@
 #undef min
 #define min(a, b) ((a) < (b)? (a): (b))
 
-#define	MAXLINE		            4096	/* max text line length */
+#define	MAXLINE                 4096	/* max text line length */
 #define LOCKFILE                "/tmp/v2rayTd.pid"
 #define FILEMODE                (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
 
 /* Unix domain datagram */
 #define V2RAYTCLI_LOCAL         "/tmp/v2rayTcli.local"
-#define	V2RAYTD_LOCAL		    "/tmp/v2rayTd.local"
+#define	V2RAYTD_LOCAL           "/tmp/v2rayTd.local"
 
 #define CFG_FILE                "v2rayTd.cfg"
 #define MAX_CFG_LINE            1024
 
 #define TOOL_FILE               "tool.sh"
 
-#define	LISTENQ		            1024	/* 2nd argument to listen() */
+#define	LISTENQ                 1024	/* 2nd argument to listen() */
 
 #define SA                      struct sockaddr
 
